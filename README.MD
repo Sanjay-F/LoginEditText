@@ -18,7 +18,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableRight="@drawable/selector_delete" />
-        
+
+
+#小问题
+
+想到还有一个问题就是没加下横线。下次有空加上去
+
 # 鸣谢
 这个密码的空间是基于[showhidepasswordedittext](https://github.com/scottyab/showhidepasswordedittext)控件修改的
 
