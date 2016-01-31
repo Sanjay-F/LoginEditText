@@ -1,4 +1,4 @@
-package com.example.sanjay.loginedittext;
+package com.xk.sanjay.loginedittext;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
+
 /**
  * 自定义带删除按钮的EditText
  * Created sanjay wrh on 16/1/14.
@@ -20,6 +21,12 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
     //EditText右侧的删除按钮
     private Drawable mClearDrawable;
     private boolean hasFoucs;
+
+    private static final int VALID_PHONE_SIZE = 11;
+    private int INVALID_IMG = R.drawable.icon_notconform;
+    private int VALID_IMG = R.drawable.icon_conform;
+    private int validSize = VALID_PHONE_SIZE;
+
 
     public ClearEditText(Context context) {
         this(context, null);
@@ -95,7 +102,7 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
         if (hasFocus) {
             setClearIconVisible(getText().length() > 0);
         } else {
-            setClearIconVisible(false);
+            setClearIconVisible(false, hasFocus);
         }
     }
 
@@ -105,6 +112,23 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
                 getCompoundDrawables()[1], right, getCompoundDrawables()[3]);
         postInvalidate();
     }
+
+    protected void setClearIconVisible(boolean visible, boolean isFocus) {
+        Drawable right = visible ? mClearDrawable : null;
+        if (!isFocus) {
+            int textLength = getText().toString().length();
+            if (textLength != validSize) {
+                right = getResources().getDrawable(INVALID_IMG);
+            } else {
+                right = getResources().getDrawable(VALID_IMG);
+            }
+
+        }
+        setCompoundDrawablesWithIntrinsicBounds(getCompoundDrawables()[0],
+                getCompoundDrawables()[1], right, getCompoundDrawables()[3]);
+        postInvalidate();
+    }
+
 
     @Override
     public void onTextChanged(CharSequence s, int start, int count, int after) {
@@ -124,4 +148,7 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
 
     }
 
+    public void setValidSize(int size) {
+        this.validSize = size;
+    }
 }

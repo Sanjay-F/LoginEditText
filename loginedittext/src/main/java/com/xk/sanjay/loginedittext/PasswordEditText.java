@@ -1,4 +1,4 @@
-package com.example.sanjay.loginedittext;
+package com.xk.sanjay.loginedittext;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -16,8 +16,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-
-import gz.lifesense.weidong.R;
 
 
 /**
@@ -116,9 +114,13 @@ public class PasswordEditText extends EditText implements TextWatcher {
             bounds = drawableEnd.getBounds();
             final int x = (int) event.getX();
 
+            //扩大点击范围
+            int rightBoudn = this.getRight() - (3 * bounds.width());
+            int leftBound = this.getLeft() + (3 * bounds.width());
+
             //check if the touch is within bounds of drawableEnd icon
-            if ((leftToRight && (x >= (this.getRight() - bounds.width()))) ||
-                    (!leftToRight && (x <= (this.getLeft() + bounds.width())))) {
+            if ((leftToRight && (x >= rightBoudn)) ||
+                    (!leftToRight && (x <= leftBound))) {
                 togglePasswordVisability();
                 //use this to prevent the keyboard from coming up
                 event.setAction(MotionEvent.ACTION_CANCEL);
